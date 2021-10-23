@@ -1,8 +1,9 @@
 <nav class="navbar navbar-expand-md navbar-light bg-white border-bottom sticky-top">
     <div class="container">
         <!-- Logo -->
-        <a class="navbar-brand me-4" href="/">
-            <x-jet-application-mark width="36" />
+        <a class="navbar-brand me-4" href="{{ route('dashboard') }}">
+            <img src="{{asset("assets/plugins/logo.png")}}" class="mt-1 img-size-2 user-image" width="40" height="40">
+        </a>
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
             <span class="navbar-toggler-icon"></span>
@@ -11,9 +12,6 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <!-- Left Side Of Navbar -->
             <ul class="navbar-nav me-auto">
-                <x-jet-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
-                    {{ __('Dashboard') }}
-                </x-jet-nav-link>
                 <x-jet-nav-link href="{{ route('clientes') }}" :active="request()->routeIs('dashboard')">
                     {{ __('Clientes') }}
                 </x-jet-nav-link>

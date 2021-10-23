@@ -23,7 +23,7 @@
                             </div>
                         </div>
                     </div>
-
+<br>
                     <form action="{{route('clientes.guardar')}}" id="form-general" class="form-horizontal" method="POST">
                         @csrf
                         <div class="card-body text-center">
