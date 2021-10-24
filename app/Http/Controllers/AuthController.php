@@ -10,26 +10,31 @@ use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
-    public function register(Request $request)
-    {
+    public function register(Request $request){
+        $response = new Response;
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8'
         ]);
-
         $user = User::create([
             'name' => $validatedData['name'],
             'email' => $validatedData['email'],
             'password' => Hash::make($validatedData['password'])
         ]);
-
-        $token = $user->createToken('auth_token')->plainTextToken;
-
-        return response()->json([
-            'access_token' => $token,
-            'token_type' => 'Bearer'
-        ]);
+        if($user){
+            $token = $user->createToken('auth_token')->plainTextToken;
+            $result = $response->response;
+            $result["result"] = array(
+                'token_type' => 'Bearer',
+                'access_token' => $token
+            );
+            return $result;
+        }else{
+            $valor = "Datos Incorrectos";
+            $result = $response->error_200($valor);
+            return $result;
+        }
     }
 
     public function login(Request $request){

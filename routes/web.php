@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\clientes\ClientesController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,9 +18,9 @@ Route::get('/', function () {return view('welcome');});
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {return view('dashboard');})->name('dashboard');
 
 //Clientes
-Route::get('clientes', [\App\Http\Controllers\clientes\ClientesController::class,'index'])->name('clientes');
-Route::get('clientes/crear', [\App\Http\Controllers\clientes\ClientesController::class,'create'])->name('clientes.crear');
-Route::post('clientes/guardar', [\App\Http\Controllers\clientes\ClientesController::class,'guardado'])->name('clientes.guardar');
+Route::get('clientes', [ClientesController::class,'index'])->name('clientes');
+Route::get('clientes/crear', [ClientesController::class,'create'])->name('clientes.crear');
+Route::post('clientes/guardar', [ClientesController::class,'guardado'])->name('clientes.guardar');
 
 
 
