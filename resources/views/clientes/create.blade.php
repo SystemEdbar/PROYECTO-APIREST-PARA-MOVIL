@@ -24,19 +24,19 @@
                         </div>
                     </div>
 <br>
-                    <form action="{{route('clientes.guardar')}}" id="form-general" class="form-horizontal" method="POST">
+                    <form action="{{route('clientes.guardar')}}" id="form-general" class="form-horizontal" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="card-body text-center">
                             <div class="form-group row">
                                 <label for="per_nit" class="col-sm-12 col-lg-3 control-label text-sm-right text-lg-right requerido">Nombre</label>
                                 <div class="col-sm-12 col-lg-8">
-                                    <input name="cli_nombre" value="{{old('cch_nombre')}}"type="text" class="form-control" id="exampleInputPassword1" maxlengt="25"  required>
+                                    <input name="cli_nit" value="{{old('cch_nombre')}}"type="text" class="form-control" id="exampleInputPassword1" maxlengt="25"  required>
                                 </div>
                             </div><br>
                             <div class="form-group row">
                                 <label for="per_nit" class="col-sm-12 col-lg-3 control-label text-sm-right text-lg-right requerido">Apellido</label>
                                 <div class="col-sm-12 col-lg-8">
-                                    <input name="cli_apellido" value="{{old('cch_nombre')}}"type="text" class="form-control" id="exampleInputPassword1" maxlengt="25" required>
+                                    <input name="cli_nombre" value="{{old('cch_nombre')}}"type="text" class="form-control" id="exampleInputPassword1" maxlengt="25" required>
                                 </div>
                             </div>
                             <br>
@@ -57,7 +57,7 @@
                             <div class="form-group row">
                                 <label for="per_nit" class="col-sm-12 col-lg-3 control-label text-sm-right text-lg-right requerido">Domicilio</label>
                                 <div class="col-sm-12 col-lg-8">
-                                    <input name="cli_domicilio" value="{{old('cch_nombre')}}"type="text" class="form-control" id="exampleInputPassword1" maxlengt="25" required>
+                                    <input name="cli_imagen" value="{{old('cch_nombre')}}"type="file" class="form-control" id="exampleInputPassword1" maxlengt="25" required>
                                 </div>
                             </div>
                             <br>

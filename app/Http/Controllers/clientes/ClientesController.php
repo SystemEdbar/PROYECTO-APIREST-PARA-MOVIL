@@ -7,6 +7,7 @@ use App\Http\Controllers\Response;
 use App\Http\Requests\clientes\ClientesRequest;
 use App\Models\Clientes;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ClientesController extends Controller
 {
@@ -40,12 +41,11 @@ class ClientesController extends Controller
     public function guardado(ClientesRequest $request){
 
         $data = $request->validated();
-        if ($request-> hasFile('cli_domicilio')){
-//            Storage::disk('productImage')->delete(''.$request['imagen']);
-//            $imagenProduct = $request-> file('imagen_url');
-//            $path = Storage::disk('productImage')->put('image/products', $imagenProduct);
-//            $data['cli_domicilio'] = 'Entro al request'.$path;
-            $data['cli_domicilio'] = 'Entro al request';
+        if ($request-> hasFile('cli_imagen')){
+//            Storage::disk('Imagen')->delete(''.$request['imagen']);
+            $imagenClient = $request-> file('cli_imagen');
+            $path = Storage::disk('Imagen')->put('image/cliente', $imagenClient);
+            $data['cli_imagen'] = $path;
         }
         Clientes::create($data);
         return redirect()->route('clientes')->with('mensaje', 'Cliente creado con Exito');
@@ -81,9 +81,17 @@ class ClientesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(ClientesRequest $request, $id)
     {
-
+        //AQUI SE ELIMINA LA IMAGEN ANTERIOR Y SE COLOCA...
+        //DEBE TRAER ADICONALMENTE DE LOS CAMPOS DE LA BD UN CAPO 'imagen_copy' DONDE VENGA LA URL GUARDADA EN LA BASE DE DATOS
+        //OJO ES LA INFORMACION DE LA BASE DE DATOS, NO LA NUEVA INFORMACION DE LA IMAGEN
+        if ($request-> hasFile('cli_imagen')){
+            Storage::disk('Imagen')->delete(''.$request['imagen_copy']);
+            $imagenClient = $request-> file('cli_imagen');
+            $path = Storage::disk('Imagen')->put('image/cliente', $imagenClient);
+            $data['cli_imagen'] = $path;
+        }
     }
 
     /**

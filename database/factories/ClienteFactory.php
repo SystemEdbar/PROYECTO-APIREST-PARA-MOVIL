@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\Clientes;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
 
 class ClienteFactory extends Factory
 {
@@ -21,13 +22,14 @@ class ClienteFactory extends Factory
      */
     public function definition()
     {
-        $name = $this->faker->name();
+        $name = $this->faker->firstName();
+        $email = $this->faker->email();
         return [
+            'cli_nit' => Str::random(10),
             'cli_nombre' => $name,
-            'cli_apellido' =>$name,
             'cli_telefono' =>55495484+$this->faker->randomFloat(0,0,1000),
-            'cli_email' => 'prueba@gmail.com',
-            'cli_domicilio' => '/image/imagen1.PNG',
+            'cli_email' => $email,
+            'cli_imagen' => '/image/cliente/default.PNG',
         ];
     }
 }

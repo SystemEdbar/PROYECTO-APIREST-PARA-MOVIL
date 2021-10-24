@@ -15,11 +15,11 @@ class CreateClientesTable extends Migration
     {
         Schema::create('clientes', function (Blueprint $table) {
             $table->bigIncrements('cli_id');
+            $table->string('cli_nit', 30);
             $table->string('cli_nombre', 30);
-            $table->string('cli_apellido', 30);
-            $table->string('cli_telefono', 15);
-            $table->string('cli_email', 20);
-            $table->string('cli_domicilio', 50)->nullable();
+            $table->string('cli_telefono', 8);
+            $table->string('cli_email', 30);
+            $table->string('cli_imagen', 100)->nullable();
         });
     }
 
