@@ -2,19 +2,20 @@
 
 namespace App\Models;
 
+use Database\Factories\ClienteFactory;
 use Illuminate\Database\Eloquent\Model;
-use Spatie\Activitylog\Traits\LogsActivity;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Clientes extends Model
 {
-    use LogsActivity;
-
-    protected $table = 'clientes';
-    protected $fillable = ['cli_nombre','cli_apellido','cli_telefono','cli_email','cli_domicilio'];
-    protected $guarded = 'cli_id';
+    use HasFactory;
+    protected $guarded = ['cli_id'];
+    protected $table = "clientes";
     protected $primaryKey = 'cli_id';
-    protected static $logName = 'clientes';
-    protected static $logOnlyDirty = true;
-    protected static $logFillable = true;
+    public $timestamps = false;
 
+    protected static function newFactory()
+    {
+        return ClienteFactory::new();
+    }
 }
