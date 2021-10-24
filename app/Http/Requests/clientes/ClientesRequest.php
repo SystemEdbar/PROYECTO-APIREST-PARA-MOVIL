@@ -23,11 +23,11 @@ class ClientesRequest extends FormRequest
     public function rules()
     {
         return [
+            'cli_nit'=>'required',
             'cli_nombre'=>'required',
-            'cli_apellido'=>'required',
             'cli_telefono'=>'required',
             'cli_email'=>'required',
-            'cli_domicilio'=>'nullable',
+            'cli_imagen'=>'nullable',
         ];
     }
 }

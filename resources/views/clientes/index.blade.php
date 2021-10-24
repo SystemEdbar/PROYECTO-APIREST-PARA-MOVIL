@@ -32,11 +32,11 @@
                             <thead class='thead-dark '>
                             <tr>
                                 <th scope="col">#</th>
+                                <th scope="col">Nit</th>
                                 <th scope="col">Nombre</th>
-                                <th scope="col">Apellido</th>
                                 <th scope="col">Telefono</th>
                                 <th scope="col">Email</th>&nbsp
-                                <th scope="col">Domicilio</th>
+                                <th scope="col">Imagen</th>
                                 <th scope="col">Editar</th>
                                 <th scope="col">Eliminar</th>
 
@@ -45,11 +45,13 @@
                             @foreach($clientes as $cli)
                                 <tr>
                                     <td>{{$cli->cli_id}}</td>
-                                    <td>{{$cli->cli_name}}</td>
-                                    <td>{{$cli->cli_apellido}}</td>
+                                    <td>{{$cli->cli_nit}}</td>
+                                    <td>{{$cli->cli_nombre}}</td>
                                     <td>{{$cli->cli_telefono}}</td>
                                     <td>{{$cli->cli_email}}</td>
-                                    <td>{{$cli->cli_domicilio}}</td>
+                                    <td>
+                                        <img class="img-fluid" src="{{$cli->cli_imagen}}" width="100"/>
+                                    </td>
                                     <td>
                                         <div><a href="" class="btn-accion-tabla mr-4" data-toggle="tooltip" title="Editar este registro">
                                                 <i class="far fa-edit"></i></a></div>
@@ -64,9 +66,6 @@
                         </table>
                     </div>
                 </div>
-                                </div>
-
-
             </div>
         </div>
     </div>
