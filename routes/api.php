@@ -21,5 +21,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
+Route::post('/logout', [AuthController::class, 'logOut']);
 Route::post('/infouser', [AuthController::class, 'infouser'])->middleware('auth:sanctum');
 Route::get('/clientes', [ClientesController::class,'showApi']);
+Route::post('/clientes/create', [ClientesController::class,'store']);
+Route::put('/clientes/edit', [ClientesController::class,'edit']);
+Route::post('/clientes/delete/{id}', [ClientesController::class,'destroy']);
+
