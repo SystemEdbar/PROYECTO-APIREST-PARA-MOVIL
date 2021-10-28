@@ -58,15 +58,4 @@ class AuthController extends Controller
         return $request->user();
     }
 
-    public function logOut()
-    {
-        $response = new Response;
-        Auth::logout();
-
-        $result = $response->response;
-        $result["result"] = array(
-            'logOut' => 'Sesion Cerrada',
-        );
-        return $result;
-    }
 }
