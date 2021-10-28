@@ -8,6 +8,7 @@ use App\Http\Requests\clientes\ClientesRequest;
 use App\Models\Clientes;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Exception;
 
 class ClientesController extends Controller
 {
@@ -49,8 +50,8 @@ class ClientesController extends Controller
         }
         Clientes::create($data);
         return redirect()->route('clientes')->with('mensaje', 'Cliente creado con Exito');
-
     }
+
     /**
      * Display the specified resource.
      *
@@ -59,21 +60,6 @@ class ClientesController extends Controller
      */
     public function show(){    }
 
-    public function showApi()
-    {
-        $response = new Response;
-        $clientes = Clientes::all();
-        if($clientes){
-            $result = $response->response;
-            $result["result"] = array(
-                'cliente' => $clientes
-            );
-        }else{
-            $valor = "Error interno del servidor";
-            $result = $response->error_500($valor);
-        }
-        return $result;
-    }
 
     /**
      * Show the form for editing the specified resource.
@@ -116,5 +102,70 @@ class ClientesController extends Controller
     public function destroy($id)
     {
 
+    }
+
+    public function showApi()
+    {
+        $response = new Response;
+        $clientes = Clientes::all();
+        if($clientes){
+            $result = $response->response;
+            $result["result"] = array(
+                'cliente' => $clientes
+            );
+        }else{
+            $valor = "Error interno del servidor";
+            $result = $response->error_500($valor);
+        }
+        return $result;
+    }
+
+    public function storeApi(ClientesRequest $request){
+        $response = new Response;
+        try {
+            $data = $request->validated();
+            if ($request-> hasFile('cli_imagen')){
+                $imagenClient = $request-> file('cli_imagen');
+                $path = Storage::disk('Imagen')->put('image/cliente', $imagenClient);
+                $data['cli_imagen'] = $path;
+            }
+            Clientes::create($data);
+            $result = $response->response;
+        }catch (Exception $e){
+            $valor = "Error Interno en el Servidor";
+            $result = $response->error_500($valor);
+        }
+        return $result;
+    }
+
+    public function editApi(ClientesRequest $request, $id){
+        $response = new Response;
+        try {
+            $data = $request->validated();
+            if ($request-> hasFile('cli_imagen')){
+                Storage::disk('Imagen')->delete(''.$request['imagen_copy']);
+                $imagenClient = $request-> file('cli_imagen');
+                $path = Storage::disk('Imagen')->put('image/cliente', $imagenClient);
+                $data['cli_imagen'] = $path;
+            }
+            Clientes::find($id)->update($data);
+            $result = $response->response;
+        }catch (Exception $e){
+            $valor = "Error Interno en el Servidor";
+            $result = $response->error_500($valor);
+        }
+        return $result;
+    }
+
+    public function destroyApi($id){
+        $response = new Response;
+        try {
+            Clientes::find($id)->delete();
+            $result = $response->response;
+        }catch (Exception $e){
+            $valor = "Error Interno en el Servidor";
+            $result = $response->error_500($valor);
+        }
+        return $result;
     }
 }
