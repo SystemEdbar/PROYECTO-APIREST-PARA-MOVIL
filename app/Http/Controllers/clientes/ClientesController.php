@@ -53,6 +53,7 @@ class ClientesController extends Controller
             $data['cli_imagen'] = $path;
         }
         Clientes::create($data);
+
         return redirect()->route('clientes')->with('mensaje', 'Cliente creado con Exito');
 
     }
@@ -106,7 +107,7 @@ class ClientesController extends Controller
         $clientes = Clientes::find($id);
         $clientes->fill($data);
         $clientes->save();
-        return redirect()->route('clientes')->with('mensaje', 'Cliente creado con Exito');
+        return redirect()->route('clientes')->with('mensaje', 'Cliente Actualizado con Exito');
     }
 
 
