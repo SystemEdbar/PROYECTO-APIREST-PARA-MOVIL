@@ -50,7 +50,7 @@ class ClientesController extends Controller
         }
         Clientes::create($data);
 
-        return redirect()->route('clientes');
+        return redirect()->route('clientes')->with('mensaje', 'Cliente creado con Exito');
 
     }
     /**
@@ -117,7 +117,7 @@ class ClientesController extends Controller
         $clientes = Clientes::find($id);
         $clientes->fill($data);
         $clientes->save();
-        return redirect()->route('clientes')->with('mensaje', 'Cliente creado con Exito');
+        return redirect()->route('clientes')->with('mensaje', 'Cliente Actualizado con Exito');
     }
 
 
