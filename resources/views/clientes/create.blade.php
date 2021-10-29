@@ -9,7 +9,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js" integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -28,13 +28,13 @@
                         @csrf
                         <div class="card-body text-center">
                             <div class="form-group row">
-                                <label for="per_nit" class="col-sm-12 col-lg-3 control-label text-sm-right text-lg-right requerido">Nombre</label>
+                                <label for="per_nit" class="col-sm-12 col-lg-3 control-label text-sm-right text-lg-right requerido">NIT</label>
                                 <div class="col-sm-12 col-lg-8">
                                     <input name="cli_nit" value="{{old('cch_nombre')}}"type="text" class="form-control" id="exampleInputPassword1" maxlengt="25"  required>
                                 </div>
                             </div><br>
                             <div class="form-group row">
-                                <label for="per_nit" class="col-sm-12 col-lg-3 control-label text-sm-right text-lg-right requerido">Apellido</label>
+                                <label for="per_nit" class="col-sm-12 col-lg-3 control-label text-sm-right text-lg-right requerido">Nombre</label>
                                 <div class="col-sm-12 col-lg-8">
                                     <input name="cli_nombre" value="{{old('cch_nombre')}}"type="text" class="form-control" id="exampleInputPassword1" maxlengt="25" required>
                                 </div>

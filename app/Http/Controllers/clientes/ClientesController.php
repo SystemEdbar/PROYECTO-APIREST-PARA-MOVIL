@@ -8,7 +8,11 @@ use App\Http\Requests\clientes\ClientesRequest;
 use App\Models\Clientes;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+
+use RealRashid\SweetAlert\Facades\Alert;
+
 use Exception;
+
 
 class ClientesController extends Controller
 {
@@ -50,6 +54,7 @@ class ClientesController extends Controller
         }
         Clientes::create($data);
         return redirect()->route('clientes')->with('mensaje', 'Cliente creado con Exito');
+
     }
 
     /**
@@ -67,17 +72,19 @@ class ClientesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(ClientesRequest $request, $id)
+    public function edit($id)
     {
+        $clientes = Clientes::find($id);
+        return view('clientes.editar', compact('clientes'));
+
         //AQUI SE ELIMINA LA IMAGEN ANTERIOR Y SE COLOCA...
         //DEBE TRAER ADICONALMENTE DE LOS CAMPOS DE LA BD UN CAPO 'imagen_copy' DONDE VENGA LA URL GUARDADA EN LA BASE DE DATOS
         //OJO ES LA INFORMACION DE LA BASE DE DATOS, NO LA NUEVA INFORMACION DE LA IMAGEN
-        if ($request-> hasFile('cli_imagen')){
-            Storage::disk('Imagen')->delete(''.$request['imagen_copy']);
-            $imagenClient = $request-> file('cli_imagen');
-            $path = Storage::disk('Imagen')->put('image/cliente', $imagenClient);
-            $data['cli_imagen'] = $path;
-        }
+        //if ($request-> hasFile('cli_imagen')){
+            //Storage::disk('Imagen')->delete(''.$request['imagen_copy']);
+           // $imagenClient = $request-> file('cli_imagen');
+           // $path = Storage::disk('Imagen')->put('image/cliente', $imagenClient);
+            //$data['cli_imagen'] = $path;}
     }
 
     /**
@@ -87,11 +94,21 @@ class ClientesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(ValidacionCuentasBancarias $request, $id)
-
+    public function update(ClientesRequest $request, $id)
     {
-
+        $data = $request->validated();
+        if ($request-> hasFile('cli_imagen')){
+//            Storage::disk('Imagen')->delete(''.$request['imagen']);
+            $imagenClient = $request-> file('cli_imagen');
+            $path = Storage::disk('Imagen')->put('image/cliente', $imagenClient);
+            $data['cli_imagen'] = $path;
+        }
+        $clientes = Clientes::find($id);
+        $clientes->fill($data);
+        $clientes->save();
+        return redirect()->route('clientes')->with('mensaje', 'Cliente creado con Exito');
     }
+
 
     /**
      * Remove the specified resource from storage.
@@ -101,7 +118,9 @@ class ClientesController extends Controller
      */
     public function destroy($id)
     {
-
+        $clientes = Clientes::find($id);
+        $clientes->delete();
+        return redirect()->route('clientes')->with('mensaje', 'Cliente eliminado con Exito');
     }
 
     public function showApi()
