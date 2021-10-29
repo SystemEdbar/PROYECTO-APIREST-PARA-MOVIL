@@ -50,7 +50,7 @@ class ClientesController extends Controller
 //            Storage::disk('Imagen')->delete(''.$request['imagen']);
             $imagenClient = $request-> file('cli_imagen');
             $path = Storage::disk('Imagen')->put('image/cliente', $imagenClient);
-            $data['cli_imagen'] = $path;
+            $data['cli_imagen'] = "/".$path;
         }
         Clientes::create($data);
 
@@ -78,14 +78,6 @@ class ClientesController extends Controller
         $clientes = Clientes::find($id);
         return view('clientes.editar', compact('clientes'));
 
-        //AQUI SE ELIMINA LA IMAGEN ANTERIOR Y SE COLOCA...
-        //DEBE TRAER ADICONALMENTE DE LOS CAMPOS DE LA BD UN CAPO 'imagen_copy' DONDE VENGA LA URL GUARDADA EN LA BASE DE DATOS
-        //OJO ES LA INFORMACION DE LA BASE DE DATOS, NO LA NUEVA INFORMACION DE LA IMAGEN
-        //if ($request-> hasFile('cli_imagen')){
-            //Storage::disk('Imagen')->delete(''.$request['imagen_copy']);
-           // $imagenClient = $request-> file('cli_imagen');
-           // $path = Storage::disk('Imagen')->put('image/cliente', $imagenClient);
-            //$data['cli_imagen'] = $path;}
     }
 
     /**
@@ -99,10 +91,10 @@ class ClientesController extends Controller
     {
         $data = $request->validated();
         if ($request-> hasFile('cli_imagen')){
-//            Storage::disk('Imagen')->delete(''.$request['imagen']);
+            Storage::disk('Imagen')->delete(''.$request['imagen_copy']);
             $imagenClient = $request-> file('cli_imagen');
             $path = Storage::disk('Imagen')->put('image/cliente', $imagenClient);
-            $data['cli_imagen'] = $path;
+            $data['cli_imagen'] = "/".$path;
         }
         $clientes = Clientes::find($id);
         $clientes->fill($data);
@@ -158,7 +150,22 @@ class ClientesController extends Controller
         return $result;
     }
 
-    public function editApi(ClientesRequest $request, $id){
+    public function editApi($id){
+        $response = new Response;
+        $clientes = Clientes::find($id);
+        if($clientes){
+            $result = $response->response;
+            $result["result"] = array(
+                'cliente' => $clientes
+            );
+        }else{
+            $valor = "Error interno del servidor";
+            $result = $response->error_500($valor);
+        }
+        return $result;
+    }
+
+    public function updateApi(ClientesRequest $request, $id){
         $response = new Response;
         try {
             $data = $request->validated();
@@ -166,9 +173,11 @@ class ClientesController extends Controller
                 Storage::disk('Imagen')->delete(''.$request['imagen_copy']);
                 $imagenClient = $request-> file('cli_imagen');
                 $path = Storage::disk('Imagen')->put('image/cliente', $imagenClient);
-                $data['cli_imagen'] = $path;
+                $data['cli_imagen'] = "/".$path;
             }
-            Clientes::find($id)->update($data);
+            $clientes = Clientes::find($id);
+            $clientes->fill($data);
+            $clientes->save();
             $result = $response->response;
         }catch (Exception $e){
             $valor = "Error Interno en el Servidor";
@@ -180,7 +189,8 @@ class ClientesController extends Controller
     public function destroyApi($id){
         $response = new Response;
         try {
-            Clientes::find($id)->delete();
+            $clientes = Clientes::find($id);
+            $clientes->delete();
             $result = $response->response;
         }catch (Exception $e){
             $valor = "Error Interno en el Servidor";

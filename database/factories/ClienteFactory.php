@@ -29,7 +29,7 @@ class ClienteFactory extends Factory
             'cli_nombre' => $name,
             'cli_telefono' =>55495484+$this->faker->randomFloat(0,0,1000),
             'cli_email' => $email,
-            'cli_imagen' => '/image/cliente/default.PNG',
+            'cli_imagen' => 'https://definicionde.es/wp-content/uploads/2019/04/definicion-de-persona-min.jpg',
         ];
     }
 }

@@ -61,6 +61,7 @@
                                 </div>
                                 <div class="col-sm-12 col-lg-6">
                                     <input name="cli_imagen" value="{{old('cch_nombre')}}" type="file"  class="form-control" id="exampleInputPassword1" maxlengt="25">
+                                    <input name="imagen_copy" value="{{$clientes->cli_imagen}}" type="text"  style="visibility:hidden">
                                 </div>
                             </div>
                             <br>
