@@ -12,9 +12,9 @@
 
         <!-- Styles -->
         <link rel="stylesheet" href="{{ mix('css/app.css') }}">
-
+        @yield('css')
         @livewireStyles
-
+        @include('sweetalert::alert')
         <!-- Scripts -->
         <script src="{{ mix('js/app.js') }}" defer></script>
     </head>
@@ -35,9 +35,10 @@
         </main>
 
         @stack('modals')
-
+        @yield('js')
         @livewireScripts
 
         @stack('scripts')
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     </body>
 </html>

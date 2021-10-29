@@ -21,6 +21,10 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 Route::get('clientes', [ClientesController::class,'index'])->name('clientes');
 Route::get('clientes/crear', [ClientesController::class,'create'])->name('clientes.crear');
 Route::post('clientes/guardar', [ClientesController::class,'guardado'])->name('clientes.guardar');
+Route::get('clientes/crear', [ClientesController::class,'create'])->name('clientes.crear');
+Route::get('clientes/editar/{id}', [ClientesController::class,'edit'])->name('clientes.editar');
+Route::post('clientes/actualizar/{id}', [ClientesController::class,'update'])->name('clientes.actualizar');
+Route::get('clientes/eliminar/{id}', [ClientesController::class,'destroy'])->name('clientes.eliminar');
 
 
 
