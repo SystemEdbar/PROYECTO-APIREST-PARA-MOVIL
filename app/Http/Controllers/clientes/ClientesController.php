@@ -51,6 +51,8 @@ class ClientesController extends Controller
             $imagenClient = $request-> file('cli_imagen');
             $path = Storage::disk('Imagen')->put('image/cliente', $imagenClient);
             $data['cli_imagen'] = "/".$path;
+        }else{
+            $data['cli_imagen'] = "https://definicionde.es/wp-content/uploads/2019/04/definicion-de-persona-min.jpg";
         }
         Clientes::create($data);
 
@@ -140,6 +142,8 @@ class ClientesController extends Controller
                 $imagenClient = $request-> file('cli_imagen');
                 $path = Storage::disk('Imagen')->put('image/cliente', $imagenClient);
                 $data['cli_imagen'] = $path;
+            }else{
+                $data['cli_imagen'] = "https://definicionde.es/wp-content/uploads/2019/04/definicion-de-persona-min.jpg";
             }
             Clientes::create($data);
             $result = $response->response;
