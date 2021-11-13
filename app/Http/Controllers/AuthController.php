@@ -55,7 +55,10 @@ class AuthController extends Controller
     }
 
     public function infouser(Request $request){
-        return $request->user();
+        $response = new Response;
+        $result = $response->response;
+        $result["result"] = $request->user();
+        return $result;
     }
 
 }
